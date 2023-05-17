@@ -41,4 +41,15 @@ export class ProductsService {
         }
         return this.productRepo.remove(product);
     }
+
+    findProductByName(productName: string) {
+        return this.productRepo
+            .createQueryBuilder('product')
+            .where('product.productName LIKE :name', { name: `%${productName}%` })
+            .getMany();
+    }
+
+    findProductByCategory(category: string) {
+        return this.productRepo.find({ where: { category } });
+    }
 }

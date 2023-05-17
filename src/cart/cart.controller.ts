@@ -17,12 +17,12 @@ export class CartController {
     }
 
     @Get()
-    findAll() {
+    findAllItemsInCart() {
         return this.cartService.findAll();
     }
 
     @Get(':id')
-    findOne(@Param('id') id: string) {
+    findOneItemInCart(@Param('id') id: string) {
         return this.cartService.findOne(+id);
     }
 

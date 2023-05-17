@@ -1,4 +1,5 @@
-import { IsString, IsEmail, IsOptional } from 'class-validator';
+import { IsString, IsEmail, IsOptional, IsEnum } from 'class-validator';
+import { USER_ROLE } from 'src/models/user-jwt.model';
 
 export class CreateUserDto {
     @IsString()
@@ -8,6 +9,6 @@ export class CreateUserDto {
     @IsString()
     password: string;
     @IsOptional()
-    @IsString()
-    role: string;
+    @IsEnum(USER_ROLE)
+    role: USER_ROLE;
 }

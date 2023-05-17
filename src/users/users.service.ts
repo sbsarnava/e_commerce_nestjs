@@ -32,7 +32,7 @@ export class UsersService {
                 throw new UnauthorizedException('Either user not found or wrong password');
             }
             return {
-                token: await this.jwtService.signAsync({ userId: user.id, email: user.password }),
+                token: await this.jwtService.signAsync({ userId: user.id, email: user.email, role: user.role }),
             };
         });
     }

@@ -6,6 +6,8 @@ import { User } from './entities/user.entity';
 import { JwtModule } from '@nestjs/jwt';
 import { JWT_SECRET } from 'env';
 import { UsersRepository } from './users.repo';
+import { IsstaffGuard } from 'src/guards/isstaff/isstaff.guard';
+import { AuthGuard } from 'src/guards/auth/auth.guard';
 
 @Module({
     imports: [
@@ -17,6 +19,6 @@ import { UsersRepository } from './users.repo';
         }),
     ],
     controllers: [UsersController],
-    providers: [UsersService, UsersService, UsersRepository],
+    providers: [UsersService, UsersService, UsersRepository, IsstaffGuard, AuthGuard],
 })
 export class UsersModule {}

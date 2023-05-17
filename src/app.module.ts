@@ -9,6 +9,9 @@ import { User } from './users/entities/user.entity';
 import { Product } from './products/entities/product.entity';
 import { Cart } from './cart/entities/cart.entity';
 import { CartItem } from './cart/entities/cart-item.entity';
+import { AuthGuard } from './guards/auth/auth.guard';
+import { IsstaffGuard } from './guards/isstaff/isstaff.guard';
+import { UtilService } from './util/util.service';
 
 @Module({
     imports: [
@@ -23,6 +26,6 @@ import { CartItem } from './cart/entities/cart-item.entity';
         CartModule,
     ],
     controllers: [AppController],
-    providers: [AppService],
+    providers: [AppService, UtilService],
 })
 export class AppModule {}

@@ -9,11 +9,11 @@ export class CartItem {
 
     @OneToOne(() => Product)
     @JoinColumn()
-    productId: Product;
+    product: Product;
 
     @Column()
     quantity: number;
 
     @ManyToOne(() => Cart, (cart) => cart.cartItems)
-    cartId: Cart;
+    cart: Cart;
 }

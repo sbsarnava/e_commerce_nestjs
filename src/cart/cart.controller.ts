@@ -1,9 +1,9 @@
 import { Controller, Get, Post, Body, Patch, Param, Delete, UseGuards, Request } from '@nestjs/common';
 import { CartService } from './cart.service';
-import { UpdateCartDto } from './dto/update-cart.dto';
 import { ProductAddToCartDTO } from './dto/product-add-to-cart.dto';
 import { AuthGuard } from 'src/guards/auth/auth.guard';
-import { User } from 'src/users/entities/user.entity';
+import { UserJWT } from 'src/models/user-jwt.model';
+import { UpdateCartDto } from './dto/update-cart.dto';
 
 @Controller('cart')
 export class CartController {
@@ -12,27 +12,28 @@ export class CartController {
     @Post('add-to-cart')
     @UseGuards(AuthGuard)
     addToCart(@Body() productAddToCartDTO: ProductAddToCartDTO, @Request() request: any) {
-        const user: User = request.user;
+        const user: UserJWT = request.user;
         return this.cartService.addToCart(productAddToCartDTO, user);
     }
 
+    @Post('update-cart')
+    @UseGuards(AuthGuard)
+    updateCart(@Body() updateCart: UpdateCartDto, @Request() request: any) {
+        const user: UserJWT = request.user;
+        return this.cartService.updateCart(user, updateCart);
+    }
+
     @Get()
-    findAllItemsInCart() {
-        return this.cartService.findAll();
+    @UseGuards(AuthGuard)
+    displayCart(@Request() request: any) {
+        const user: UserJWT = request.user;
+        return this.cartService.displayCart(user);
     }
 
-    @Get(':id')
-    findOneItemInCart(@Param('id') id: string) {
-        return this.cartService.findOne(+id);
-    }
-
-    @Patch(':id')
-    update(@Param('id') id: string, @Body() updateCartDto: UpdateCartDto) {
-        return this.cartService.update(+id, updateCartDto);
-    }
-
-    @Delete(':id')
-    remove(@Param('id') id: string) {
-        return this.cartService.remove(+id);
+    @Delete()
+    @UseGuards(AuthGuard)
+    deleteCart(@Request() request: any) {
+        const user: UserJWT = request.user;
+        return this.cartService.deleteCart(user);
     }
 }

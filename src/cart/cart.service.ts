@@ -1,42 +1,58 @@
-import { Injectable } from '@nestjs/common';
-import { CreateCartDto } from './dto/create-cart.dto';
+import { Injectable, NotFoundException } from '@nestjs/common';
 import { UpdateCartDto } from './dto/update-cart.dto';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Cart } from './entities/cart.entity';
 import { Repository } from 'typeorm';
 import { ProductAddToCartDTO } from './dto/product-add-to-cart.dto';
 import { CartItemService } from './cart-item.service';
-import { User } from 'src/users/entities/user.entity';
+import { UserJWT } from 'src/models/user-jwt.model';
 
 @Injectable()
 export class CartService {
     constructor(@InjectRepository(Cart) private cartRepo: Repository<Cart>, private cartItemService: CartItemService) {}
 
-    async addToCart(productAddToCartDTO: ProductAddToCartDTO, user: User) {
+    async addToCart(productAddToCartDTO: ProductAddToCartDTO, user: UserJWT) {
         const cartItem = await this.cartItemService.create(productAddToCartDTO);
-        let cart = await this.cartRepo.findOne({ where: { userId: user.id } });
+        let cart = await this.cartRepo.findOne({ where: { user: user } });
         if (cart) {
-            cart.cartItems.push(cartItem);
+            const isCartItemPresent = cart.cartItems.some((item) => item === cartItem);
+            if (isCartItemPresent) {
+                const cartItemIndex = cart.cartItems.indexOf(cartItem);
+                cart.cartItems[cartItemIndex] = cartItem;
+            } else {
+                cart.cartItems.push(cartItem);
+            }
             return this.cartRepo.save(cart);
         } else {
-            cart = this.cartRepo.create({ userId: user.id, cartItems: [cartItem] });
+            cart = this.cartRepo.create({ user: user, cartItems: [cartItem] });
             return this.cartRepo.save(cart);
         }
     }
 
-    findAll() {
-        return `This action returns all cart`;
+    async updateCart(user: UserJWT, updateCartDto: UpdateCartDto) {
+        const cartItem = await this.cartItemService.findOne(updateCartDto.productId);
+        const cart = await this.cartRepo.findOne({ where: { user } });
+        if (!cart) {
+            throw new NotFoundException('There is no cart associated with the user');
+        }
+        const indexOfCartItem = cart.cartItems.findIndex((item) => item === cartItem);
+        cart.cartItems[indexOfCartItem].quantity += updateCartDto.quantity;
+        return this.cartRepo.save(cart);
     }
 
-    findOne(id: number) {
-        return `This action returns a #${id} cart`;
+    async displayCart(user: UserJWT) {
+        const cart = await this.cartRepo.findOne({ where: { user: user } });
+        if (!cart) {
+            throw new NotFoundException('Cart was not found');
+        }
+        return cart;
     }
 
-    update(id: number, updateCartDto: UpdateCartDto) {
-        return `This action updates a #${id} cart`;
-    }
-
-    remove(id: number) {
-        return `This action removes a #${id} cart`;
+    async deleteCart(user: UserJWT) {
+        const cart = await this.cartRepo.find({ where: { user: user } });
+        if (!cart) {
+            throw new NotFoundException('Cart was not found');
+        }
+        return this.cartRepo.remove(cart);
     }
 }

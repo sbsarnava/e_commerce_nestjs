@@ -11,7 +11,7 @@ export class IscustomerInterceptor implements NestInterceptor {
         return next.handle().pipe(
             map((data) => {
                 const user = this.utilService.getUserFromContext(context);
-                if (user.role == USER_ROLE.customer) {
+                if (user?.role == USER_ROLE.customer) {
                     if (Array.isArray(data)) {
                         data.map((item: Product) => delete item.costPrice);
                     } else {

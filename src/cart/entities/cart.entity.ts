@@ -7,10 +7,10 @@ export class Cart {
     @PrimaryGeneratedColumn()
     id: number;
 
-    @OneToOne(() => User)
+    @OneToOne(() => User, { eager: true })
     @JoinColumn()
-    userId: number;
+    user: User;
 
-    @OneToMany(() => CartItem, (cartItem) => cartItem.cartId)
+    @OneToMany(() => CartItem, (cartItem) => cartItem.cart, { cascade: true, eager: true })
     cartItems: CartItem[];
 }

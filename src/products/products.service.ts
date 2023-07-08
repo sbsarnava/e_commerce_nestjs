@@ -50,6 +50,8 @@ export class ProductsService {
     }
 
     findProductByCategory(category: string) {
-        return this.productRepo.find({ where: { category } });
+        console.log(category);
+        return this.productRepo.find({ where: { category: category } });
     }
 }
+

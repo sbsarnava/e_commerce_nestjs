@@ -7,10 +7,12 @@ import { AuthGuard } from 'src/guards/auth/auth.guard';
 import { IscustomerInterceptor } from './interceptor/iscustomer/iscustomer.interceptor';
 import { ProductCategorySearchDTO } from './dto/product-category-search.dto';
 import { IsstaffGuard } from 'src/guards/isstaff/isstaff.guard';
+import { Logger } from '@nestjs/common';
+import { ReturningStatementNotSupportedError } from 'typeorm';
 
 @Controller('products')
 export class ProductsController {
-    constructor(private readonly productsService: ProductsService) {}
+    constructor(private readonly productsService: ProductsService, private readonly logger: Logger) {}
 
     @Post()
     @UseGuards(IsstaffGuard)
@@ -44,16 +46,15 @@ export class ProductsController {
         return this.productsService.remove(+id);
     }
 
-    //Search for products by name
-    @Get('search-product-name')
+    @Post('search-product-name')
+    @UseGuards(AuthGuard)
     searchProductsByName(@Body() productNameSearchDTO: ProductNameSearchDTO) {
         return this.productsService.findProductByName(productNameSearchDTO.productName);
     }
 
-    @Get('search-product-name')
-    @UseGuards(AuthGuard)
-    @UseInterceptors(IscustomerInterceptor)
-    searchProductsByCategory(@Body() categoryName: ProductCategorySearchDTO) {
-        return this.productsService.findProductByCategory(categoryName.category);
+    @Post('search-product-category')
+    // @UseGuards(AuthGuard)
+    searchProductsByCategory(@Body() productCategorySearchDTO: ProductCategorySearchDTO) {
+        return this.productsService.findProductByCategory(productCategorySearchDTO.category);
     }
 }

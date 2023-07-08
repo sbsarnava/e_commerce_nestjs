@@ -41,7 +41,7 @@ export class CartService {
     }
 
     async displayCart(user: UserJWT) {
-        const cart = await this.cartRepo.findOne({ where: { user: user } });
+        const cart = await this.cartRepo.findOne({ where: { id: user.userId } });
         if (!cart) {
             throw new NotFoundException('Cart was not found');
         }

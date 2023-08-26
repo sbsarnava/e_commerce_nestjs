@@ -27,12 +27,9 @@ export class CartService {
             const isCartItemPresentInCartIndex = cart.cartItems.findIndex(
                 (cartItem) => cartItem.product.id === productAddToCartDTO.productId,
             );
-            console.log(isCartItemPresentInCartIndex);
             if (isCartItemPresentInCartIndex !== -1) {
                 cart.cartItems[isCartItemPresentInCartIndex].quantity = productAddToCartDTO.quantity;
-                console.log('Line 32');
             } else {
-                console.log('Line 34');
                 let cartItem = await this.cartItemService.create(productAddToCartDTO);
                 cart.cartItems.push(cartItem);
             }

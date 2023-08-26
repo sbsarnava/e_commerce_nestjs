@@ -19,11 +19,9 @@ export class CartItemService {
         }
         let cartItem = await this.cartItemRepo.findOne({ where: { product: product } });
         if (cartItem) {
-            console.log("Line 30")
             cartItem.quantity = productAddToCartDTO.quantity;
             return this.cartItemRepo.save(cartItem);
         } else {
-            console.log("Line 34")
             cartItem = this.cartItemRepo.create({ product: product, quantity: productAddToCartDTO.quantity });
             return this.cartItemRepo.save(cartItem);
         }

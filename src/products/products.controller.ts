@@ -53,7 +53,7 @@ export class ProductsController {
     }
 
     @Post('search-product-category')
-    // @UseGuards(AuthGuard)
+    @UseGuards(AuthGuard)
     searchProductsByCategory(@Body() productCategorySearchDTO: ProductCategorySearchDTO) {
         return this.productsService.findProductByCategory(productCategorySearchDTO.category);
     }

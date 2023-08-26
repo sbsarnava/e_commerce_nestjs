@@ -13,10 +13,10 @@ export class User {
     email: string;
 
     @Exclude()
-    @Column()
+    @Column({select: false})
     password: string;
 
     @Exclude()
-    @Column({ default: 'customer' })
+    @Column({ default: 'customer',select: false })
     role: string;
 }

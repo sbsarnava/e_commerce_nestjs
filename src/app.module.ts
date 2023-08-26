@@ -9,9 +9,9 @@ import { User } from './users/entities/user.entity';
 import { Product } from './products/entities/product.entity';
 import { Cart } from './cart/entities/cart.entity';
 import { CartItem } from './cart/entities/cart-item.entity';
-import { AuthGuard } from './guards/auth/auth.guard';
-import { IsstaffGuard } from './guards/isstaff/isstaff.guard';
 import { UtilService } from './util/util.service';
+import { JWT_SECRET } from 'env';
+import { JwtModule } from '@nestjs/jwt';
 
 @Module({
     imports: [
@@ -24,6 +24,11 @@ import { UtilService } from './util/util.service';
         UsersModule,
         ProductsModule,
         CartModule,
+        JwtModule.register({
+            global: true,
+            secret: JWT_SECRET,
+            signOptions: { expiresIn: '24h' },
+        }),
     ],
     controllers: [AppController],
     providers: [AppService, UtilService],

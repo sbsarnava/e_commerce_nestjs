@@ -8,31 +8,36 @@ import { ProductAddToCartDTO } from './dto/product-add-to-cart.dto';
 @Injectable()
 export class CartItemService {
     constructor(@InjectRepository(CartItem) private cartItemRepo: Repository<CartItem>, private productsService: ProductsService) {}
-
-    async findOne(productId: number) {
-        const product = await this.productsService.findOne(productId);
-        if (!product) {
-            throw new NotFoundException('Product Not Found');
-        }
-        return this.cartItemRepo.findOne({ where: { product } });
-    }
-
+    
     async create(productAddToCartDTO: ProductAddToCartDTO): Promise<CartItem> {
         const product = await this.productsService.findOne(productAddToCartDTO.productId);
         if (!product) {
             throw new NotFoundException('Product Not Found');
         }
-        let cartItem = await this.cartItemRepo.findOne({ where: { id: product.id } });
+        if (productAddToCartDTO.quantity > product.quantityAvailable) {
+            throw new BadRequestException('Please add less than the quantity available');
+        }
+        let cartItem = await this.cartItemRepo.findOne({ where: { product: product } });
         if (cartItem) {
-            cartItem.quantity += productAddToCartDTO.quantity;
+            console.log("Line 30")
+            cartItem.quantity = productAddToCartDTO.quantity;
             return this.cartItemRepo.save(cartItem);
         } else {
+            console.log("Line 34")
             cartItem = this.cartItemRepo.create({ product: product, quantity: productAddToCartDTO.quantity });
             return this.cartItemRepo.save(cartItem);
         }
     }
 
-    remove(cartItem: CartItem) {
+    async remove(cartItemId: number) {
+        const cartItem = await this.cartItemRepo.findOne({ where: { id: cartItemId } });
+        if (!cartItem) {
+            throw new NotFoundException('Cart Item not Found');
+        }
         return this.cartItemRepo.remove(cartItem);
+    }
+
+    save(cartItem: CartItem) {
+        return this.cartItemRepo.save(cartItem);
     }
 }

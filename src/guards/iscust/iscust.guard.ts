@@ -15,8 +15,8 @@ export class IsCustGuard implements CanActivate {
         if (!user) {
             throw new UnauthorizedException('User not authorized 2');
         }
-        const isStaff = user.role && user.role === USER_ROLE.customer ? true : false;
-        if (isStaff) {
+        const isCustomer = user.role && user.role === USER_ROLE.customer ? true : false;
+        if (isCustomer) {
             return true;
         } else {
             throw new UnauthorizedException();

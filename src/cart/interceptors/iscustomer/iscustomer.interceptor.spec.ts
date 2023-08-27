@@ -1,7 +1,14 @@
-import { IscustomerInterceptor } from './iscustomer.interceptor';
+import { UtilService } from 'src/util/util.service';
+import { IscustomerCartInterceptor } from './iscustomer.interceptor';
 
 describe('IscustomerInterceptor', () => {
-  it('should be defined', () => {
-    expect(new IscustomerInterceptor()).toBeDefined();
-  });
+    let utilService: UtilService;
+
+    beforeEach(() => {
+        utilService = new UtilService();
+    });
+
+    it('should be defined', () => {
+        expect(new IscustomerCartInterceptor(utilService)).toBeDefined();
+    });
 });

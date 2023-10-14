@@ -8,7 +8,7 @@ import { ProductAddToCartDTO } from './dto/product-add-to-cart.dto';
 @Injectable()
 export class CartItemService {
     constructor(@InjectRepository(CartItem) private cartItemRepo: Repository<CartItem>, private productsService: ProductsService) {}
-    
+
     async create(productAddToCartDTO: ProductAddToCartDTO): Promise<CartItem> {
         const product = await this.productsService.findOne(productAddToCartDTO.productId);
         if (!product) {

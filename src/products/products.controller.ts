@@ -12,7 +12,7 @@ import { ReturningStatementNotSupportedError } from 'typeorm';
 
 @Controller('products')
 export class ProductsController {
-    constructor(private readonly productsService: ProductsService, private readonly logger: Logger) {}
+    constructor(private readonly productsService: ProductsService) {}
 
     @Post()
     @UseGuards(IsstaffGuard)

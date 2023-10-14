@@ -9,7 +9,13 @@ import { IsCustGuard } from 'src/guards/iscust/iscust.guard';
 import { UtilService } from 'src/util/util.service';
 import { DeleteCartitem } from './dto/delete-cart-item.dto';
 import { IscustomerCartItemInterceptor } from './interceptors/iscustomer-cart-item/iscustomer-cart-item.interceptor';
+import { ApiHeader, ApiTags } from '@nestjs/swagger';
 
+@ApiTags('cart')
+@ApiHeader({
+  name: 'Authentication',
+  description: 'JWT Bearer Token',
+})
 @Controller('cart')
 @UseGuards(AuthGuard, IsCustGuard)
 export class CartController {

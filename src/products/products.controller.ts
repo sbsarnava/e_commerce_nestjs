@@ -7,9 +7,13 @@ import { AuthGuard } from 'src/guards/auth/auth.guard';
 import { IscustomerInterceptor } from './interceptor/iscustomer/iscustomer.interceptor';
 import { ProductCategorySearchDTO } from './dto/product-category-search.dto';
 import { IsstaffGuard } from 'src/guards/isstaff/isstaff.guard';
-import { Logger } from '@nestjs/common';
-import { ReturningStatementNotSupportedError } from 'typeorm';
+import { ApiHeader, ApiTags } from '@nestjs/swagger';
 
+@ApiTags('products')
+@ApiHeader({
+  name: 'Authentication',
+  description: 'JWT Bearer Token',
+})
 @Controller('products')
 export class ProductsController {
   constructor(private readonly productsService: ProductsService) {}

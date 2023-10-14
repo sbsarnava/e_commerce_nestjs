@@ -14,23 +14,23 @@ import { JWT_SECRET } from 'env';
 import { JwtModule } from '@nestjs/jwt';
 
 @Module({
-    imports: [
-        TypeOrmModule.forRoot({
-            type: 'sqlite',
-            entities: [User, Product, Cart, CartItem],
-            database: 'e_commerce.sqlite',
-            synchronize: true,
-        }),
-        UsersModule,
-        ProductsModule,
-        CartModule,
-        JwtModule.register({
-            global: true,
-            secret: JWT_SECRET,
-            signOptions: { expiresIn: '24h' },
-        }),
-    ],
-    controllers: [AppController],
-    providers: [AppService, UtilService],
+  imports: [
+    TypeOrmModule.forRoot({
+      type: 'sqlite',
+      entities: [User, Product, Cart, CartItem],
+      database: 'e_commerce.sqlite',
+      synchronize: true,
+    }),
+    UsersModule,
+    ProductsModule,
+    CartModule,
+    JwtModule.register({
+      global: true,
+      secret: JWT_SECRET,
+      signOptions: { expiresIn: '24h' },
+    }),
+  ],
+  controllers: [AppController],
+  providers: [AppService, UtilService],
 })
 export class AppModule {}

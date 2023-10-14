@@ -13,39 +13,39 @@ import { IscustomerCartItemInterceptor } from './interceptors/iscustomer-cart-it
 @Controller('cart')
 @UseGuards(AuthGuard, IsCustGuard)
 export class CartController {
-    constructor(private readonly cartService: CartService, private readonly utilService: UtilService) {}
+  constructor(private readonly cartService: CartService, private readonly utilService: UtilService) {}
 
-    @Post('add-to-cart')
-    @UseInterceptors(IscustomerCartInterceptor)
-    addToCart(@Body() productAddToCartDTO: ProductAddToCartDTO, @Request() request: any) {
-        const user: UserJWT = request.user;
-        return this.cartService.addToCart(productAddToCartDTO, user);
-    }
+  @Post('add-to-cart')
+  @UseInterceptors(IscustomerCartInterceptor)
+  addToCart(@Body() productAddToCartDTO: ProductAddToCartDTO, @Request() request: any) {
+    const user: UserJWT = request.user;
+    return this.cartService.addToCart(productAddToCartDTO, user);
+  }
 
-    @Post('update-cart')
-    @UseInterceptors(IscustomerCartItemInterceptor)
-    updateCart(@Body() updateCart: UpdateCartDto, @Request() request: any) {
-        const user: UserJWT = request.user;
-        return this.cartService.updateCart(user, updateCart);
-    }
+  @Post('update-cart')
+  @UseInterceptors(IscustomerCartItemInterceptor)
+  updateCart(@Body() updateCart: UpdateCartDto, @Request() request: any) {
+    const user: UserJWT = request.user;
+    return this.cartService.updateCart(user, updateCart);
+  }
 
-    @Get()
-    @UseInterceptors(IscustomerCartInterceptor)
-    displayCart(@Request() request: any) {
-        const user: UserJWT = request.user;
-        return this.cartService.displayCart(user);
-    }
+  @Get()
+  @UseInterceptors(IscustomerCartInterceptor)
+  displayCart(@Request() request: any) {
+    const user: UserJWT = request.user;
+    return this.cartService.displayCart(user);
+  }
 
-    @Delete()
-    deleteCart(@Request() request: any) {
-        const user: UserJWT = request.user;
-        return this.cartService.deleteCart(user);
-    }
+  @Delete()
+  deleteCart(@Request() request: any) {
+    const user: UserJWT = request.user;
+    return this.cartService.deleteCart(user);
+  }
 
-    @Post('delete-item')
-    @UseInterceptors(IscustomerCartItemInterceptor)
-    deleteItem(@Request() request: any, @Body() deleteCartItem: DeleteCartitem) {
-        const user: UserJWT = this.utilService.getUserFromRequest(request);
-        return this.cartService.deleteCartItem(deleteCartItem.cartItemId);
-    }
+  @Post('delete-item')
+  @UseInterceptors(IscustomerCartItemInterceptor)
+  deleteItem(@Request() request: any, @Body() deleteCartItem: DeleteCartitem) {
+    const user: UserJWT = this.utilService.getUserFromRequest(request);
+    return this.cartService.deleteCartItem(deleteCartItem.cartItemId);
+  }
 }

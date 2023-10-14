@@ -9,9 +9,9 @@ import { IsstaffGuard } from 'src/guards/isstaff/isstaff.guard';
 import { AuthGuard } from 'src/guards/auth/auth.guard';
 
 @Module({
-    imports: [TypeOrmModule.forFeature([Product])],
-    controllers: [ProductsController],
-    providers: [ProductsService, IscustomerInterceptor, UtilService, IsstaffGuard, AuthGuard, Logger],
-    exports: [ProductsService],
+  imports: [TypeOrmModule.forFeature([Product])],
+  controllers: [ProductsController],
+  providers: [ProductsService, IscustomerInterceptor, UtilService, IsstaffGuard, AuthGuard, Logger],
+  exports: [ProductsService],
 })
 export class ProductsModule {}

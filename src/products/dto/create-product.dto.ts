@@ -1,21 +1,21 @@
 import { IsNumber, IsString } from 'class-validator';
 
 export class CreateProductDto {
-    @IsString()
-    productName: string;
+  @IsString()
+  productName: string;
 
-    @IsNumber()
-    costPrice: number;
+  @IsNumber()
+  costPrice: number;
 
-    @IsNumber()
-    sellingPrice: number;
+  @IsNumber()
+  sellingPrice: number;
 
-    @IsNumber()
-    quantityAvailable: number;
+  @IsNumber()
+  quantityAvailable: number;
 
-    @IsString()
-    category: string;
+  @IsString()
+  category: string;
 
-    @IsString()
-    description: string;
+  @IsString()
+  description: string;
 }

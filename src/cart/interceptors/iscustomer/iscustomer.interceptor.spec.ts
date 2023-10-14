@@ -13,8 +13,6 @@ describe('IscustomerInterceptor', () => {
   });
 
   describe('intercept()', () => {
-    it('should not return cost price when Customer is logged in', () => {
-        
-    });
+    it('should not return cost price when Customer is logged in', () => {});
   });
 });

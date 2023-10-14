@@ -12,7 +12,7 @@ describe('UsersController', () => {
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
       controllers: [UsersController],
-      providers: [UsersService, JwtService, AuthGuard,  { provide: getRepositoryToken(User), useValue: {} }],
+      providers: [UsersService, JwtService, AuthGuard, { provide: getRepositoryToken(User), useValue: {} }],
     }).compile();
 
     controller = module.get<UsersController>(UsersController);

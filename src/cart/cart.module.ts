@@ -12,8 +12,8 @@ import { IsCustGuard } from 'src/guards/iscust/iscust.guard';
 import { AuthGuard } from 'src/guards/auth/auth.guard';
 
 @Module({
-    imports: [TypeOrmModule.forFeature([Cart, CartItem]), ProductsModule, UsersModule],
-    controllers: [CartController],
-    providers: [CartService, CartItemService, UtilService, IsCustGuard, AuthGuard],
+  imports: [TypeOrmModule.forFeature([Cart, CartItem]), ProductsModule, UsersModule],
+  controllers: [CartController],
+  providers: [CartService, CartItemService, UtilService, IsCustGuard, AuthGuard],
 })
 export class CartModule {}

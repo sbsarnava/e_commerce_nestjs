@@ -6,18 +6,18 @@ import { UtilService } from 'src/util/util.service';
 
 @Injectable()
 export class IscustomerCartInterceptor implements NestInterceptor {
-    constructor(private utilService: UtilService) {}
-    intercept(context: ExecutionContext, next: CallHandler): Observable<any> {
-        return next.handle().pipe(
-            map((data: CartModel) => {
-                const user = this.utilService.getUserFromContext(context);
-                if (user.role === USER_ROLE.customer) {
-                    data.cartItems.map((item) => {
-                        return delete item.product.costPrice;
-                    });
-                }
-                return data;
-            }),
-        );
-    }
+  constructor(private utilService: UtilService) {}
+  intercept(context: ExecutionContext, next: CallHandler): Observable<any> {
+    return next.handle().pipe(
+      map((data: CartModel) => {
+        const user = this.utilService.getUserFromContext(context);
+        if (user.role === USER_ROLE.customer) {
+          data.cartItems.map((item) => {
+            return delete item.product.costPrice;
+          });
+        }
+        return data;
+      }),
+    );
+  }
 }

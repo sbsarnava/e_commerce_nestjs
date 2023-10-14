@@ -8,30 +8,30 @@ import { IsstaffGuard } from 'src/guards/isstaff/isstaff.guard';
 @Controller('users')
 @UseInterceptors(ClassSerializerInterceptor)
 export class UsersController {
-    constructor(private readonly usersService: UsersService) {}
+  constructor(private readonly usersService: UsersService) {}
 
-    @Post('login')
-    async login(@Body() loginUserDto: LoginUserDto) {
-        return await this.usersService.login(loginUserDto);
-    }
+  @Post('login')
+  async login(@Body() loginUserDto: LoginUserDto) {
+    return await this.usersService.login(loginUserDto);
+  }
 
-    @Post('register')
-    async register(@Body() createUserDto: CreateUserDto) {
-        return await this.usersService.create(createUserDto);
-    }
+  @Post('register')
+  async register(@Body() createUserDto: CreateUserDto) {
+    return await this.usersService.create(createUserDto);
+  }
 
-    @Post('logout')
-    logout() {}
+  @Post('logout')
+  logout() {}
 
-    @Get('who-am-i')
-    @UseGuards(AuthGuard)
-    whoAmI(@Request() request: any) {
-        return request.user;
-    }
+  @Get('who-am-i')
+  @UseGuards(AuthGuard)
+  whoAmI(@Request() request: any) {
+    return request.user;
+  }
 
-    @Get('am-i-staff')
-    @UseGuards(IsstaffGuard)
-    amIStaff(@Request() request: any) {
-        return request.user;
-    }
+  @Get('am-i-staff')
+  @UseGuards(IsstaffGuard)
+  amIStaff(@Request() request: any) {
+    return request.user;
+  }
 }

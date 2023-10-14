@@ -6,22 +6,22 @@ import { ProductsService } from 'src/products/products.service';
 import { Product } from 'src/products/entities/product.entity';
 
 describe('CartItem', () => {
-    let service: CartItemService;
+  let service: CartItemService;
 
-    beforeEach(async () => {
-        const module: TestingModule = await Test.createTestingModule({
-            providers: [
-                CartItemService,
-                { provide: getRepositoryToken(CartItem), useValue: {} },
-                ProductsService,
-                { provide: getRepositoryToken(Product), useValue: {} },
-            ],
-        }).compile();
+  beforeEach(async () => {
+    const module: TestingModule = await Test.createTestingModule({
+      providers: [
+        CartItemService,
+        { provide: getRepositoryToken(CartItem), useValue: {} },
+        ProductsService,
+        { provide: getRepositoryToken(Product), useValue: {} },
+      ],
+    }).compile();
 
-        service = module.get<CartItemService>(CartItemService);
-    });
+    service = module.get<CartItemService>(CartItemService);
+  });
 
-    it('should be defined', () => {
-        expect(service).toBeDefined();
-    });
+  it('should be defined', () => {
+    expect(service).toBeDefined();
+  });
 });

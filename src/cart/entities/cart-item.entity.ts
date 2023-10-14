@@ -4,16 +4,16 @@ import { Cart } from './cart.entity';
 
 @Entity()
 export class CartItem {
-    @PrimaryGeneratedColumn()
-    id: number;
+  @PrimaryGeneratedColumn()
+  id: number;
 
-    @OneToOne(() => Product, {eager: true})
-    @JoinColumn()
-    product: Product;
+  @OneToOne(() => Product, { eager: true })
+  @JoinColumn()
+  product: Product;
 
-    @Column()
-    quantity: number;
+  @Column()
+  quantity: number;
 
-    @ManyToOne(() => Cart, (cart) => cart.cartItems, {onDelete: "CASCADE"})
-    cart: Cart;
+  @ManyToOne(() => Cart, (cart) => cart.cartItems, { onDelete: 'CASCADE' })
+  cart: Cart;
 }

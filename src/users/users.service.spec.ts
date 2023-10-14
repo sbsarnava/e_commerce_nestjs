@@ -9,7 +9,7 @@ describe('UsersService', () => {
 
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
-      providers: [UsersService, JwtService, {provide: getRepositoryToken(User), useValue: {}}],
+      providers: [UsersService, JwtService, { provide: getRepositoryToken(User), useValue: {} }],
     }).compile();
 
     service = module.get<UsersService>(UsersService);

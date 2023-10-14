@@ -12,49 +12,49 @@ import { ReturningStatementNotSupportedError } from 'typeorm';
 
 @Controller('products')
 export class ProductsController {
-    constructor(private readonly productsService: ProductsService) {}
+  constructor(private readonly productsService: ProductsService) {}
 
-    @Post()
-    @UseGuards(IsstaffGuard)
-    create(@Body() createProductDto: CreateProductDto) {
-        return this.productsService.create(createProductDto);
-    }
+  @Post()
+  @UseGuards(IsstaffGuard)
+  create(@Body() createProductDto: CreateProductDto) {
+    return this.productsService.create(createProductDto);
+  }
 
-    @Get()
-    @UseGuards(AuthGuard)
-    @UseInterceptors(IscustomerInterceptor)
-    findAll() {
-        return this.productsService.findAll();
-    }
+  @Get()
+  @UseGuards(AuthGuard)
+  @UseInterceptors(IscustomerInterceptor)
+  findAll() {
+    return this.productsService.findAll();
+  }
 
-    @Get(':id')
-    @UseGuards(AuthGuard)
-    @UseInterceptors(IscustomerInterceptor)
-    findOne(@Param('id') id: string) {
-        return this.productsService.findOne(+id);
-    }
+  @Get(':id')
+  @UseGuards(AuthGuard)
+  @UseInterceptors(IscustomerInterceptor)
+  findOne(@Param('id') id: string) {
+    return this.productsService.findOne(+id);
+  }
 
-    @Patch(':id')
-    @UseGuards(IsstaffGuard)
-    update(@Param('id') id: string, @Body() updateProductDto: UpdateProductDto) {
-        return this.productsService.update(+id, updateProductDto);
-    }
+  @Patch(':id')
+  @UseGuards(IsstaffGuard)
+  update(@Param('id') id: string, @Body() updateProductDto: UpdateProductDto) {
+    return this.productsService.update(+id, updateProductDto);
+  }
 
-    @Delete(':id')
-    @UseGuards(IsstaffGuard)
-    remove(@Param('id') id: string) {
-        return this.productsService.remove(+id);
-    }
+  @Delete(':id')
+  @UseGuards(IsstaffGuard)
+  remove(@Param('id') id: string) {
+    return this.productsService.remove(+id);
+  }
 
-    @Post('search-product-name')
-    @UseGuards(AuthGuard)
-    searchProductsByName(@Body() productNameSearchDTO: ProductNameSearchDTO) {
-        return this.productsService.findProductByName(productNameSearchDTO.productName);
-    }
+  @Post('search-product-name')
+  @UseGuards(AuthGuard)
+  searchProductsByName(@Body() productNameSearchDTO: ProductNameSearchDTO) {
+    return this.productsService.findProductByName(productNameSearchDTO.productName);
+  }
 
-    @Post('search-product-category')
-    @UseGuards(AuthGuard)
-    searchProductsByCategory(@Body() productCategorySearchDTO: ProductCategorySearchDTO) {
-        return this.productsService.findProductByCategory(productCategorySearchDTO.category);
-    }
+  @Post('search-product-category')
+  @UseGuards(AuthGuard)
+  searchProductsByCategory(@Body() productCategorySearchDTO: ProductCategorySearchDTO) {
+    return this.productsService.findProductByCategory(productCategorySearchDTO.category);
+  }
 }

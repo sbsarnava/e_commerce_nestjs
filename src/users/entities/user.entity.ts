@@ -3,20 +3,20 @@ import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
 
 @Entity()
 export class User {
-    @PrimaryGeneratedColumn()
-    id: number;
+  @PrimaryGeneratedColumn()
+  id: number;
 
-    @Column()
-    name: string;
+  @Column()
+  name: string;
 
-    @Column()
-    email: string;
+  @Column()
+  email: string;
 
-    @Exclude()
-    @Column({select: false})
-    password: string;
+  @Exclude()
+  @Column({ select: false })
+  password: string;
 
-    @Exclude()
-    @Column({ default: 'customer',select: false })
-    role: string;
+  @Exclude()
+  @Column({ default: 'customer', select: false })
+  role: string;
 }
